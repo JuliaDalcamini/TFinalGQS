@@ -4,23 +4,34 @@
  */
 package com.mycompany.trabalho_final.builder;
 
-import com.mycompany.trabalho_final.model.CestaBasicaModel;
+import com.mycompany.trabalho_final.model.ProdutoDAO;
+import com.mycompany.trabalho_final.model.ProdutoModel;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author julia
  */
 public class CestaDirector {
-    
-    CestaBuilder builder;
+    protected ProdutoDAO dao;
 
-    public CestaDirector(CestaBuilder builder) {
-        this.builder = builder;
+    public void constructCestaEconomica(CestaBuilder builder) {
+        List<ProdutoModel> produtos = new ArrayList<>();
+        produtos.addAll(dao.getProdutosBasicos());
+        //produtos.addAll(dao.getProdutosVegetais());
+        //produtos.addAll(dao.getProdutosProteinas());
+        builder.setTipoCesta(TipoCesta.ECONOMICA);
+        builder.setProdutos(produtos);
     }
-
-    public CestaBasicaModel buildCesta() {
-        builder.createCesta();
-        builder.addProduto();
-        return builder.getCesta();
+    
+    public void constructCestaPremium(Builder builder) {
+        List<ProdutoModel> produtos = new ArrayList<>();
+        produtos.addAll(dao.getProdutosBasicos());
+        produtos.addAll(dao.getProdutosVegetais());
+        produtos.addAll(dao.getProdutosProteinas());
+        produtos.addAll(dao.getProdutosIndustrializadosA());
+        builder.setTipoCesta(TipoCesta.PREMIUM);
+        builder.setProdutos(produtos);
     }
 }

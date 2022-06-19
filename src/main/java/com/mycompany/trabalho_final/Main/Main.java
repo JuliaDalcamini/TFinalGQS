@@ -6,8 +6,6 @@ package com.mycompany.trabalho_final.Main;
 
 import com.mycompany.trabalho_final.builder.CestaBuilder;
 import com.mycompany.trabalho_final.builder.CestaDirector;
-import com.mycompany.trabalho_final.builder.CestaEconomicaBuilder;
-import com.mycompany.trabalho_final.model.CestaBasicaModel;
 import com.mycompany.trabalho_final.model.ClienteModel;
 import com.mycompany.trabalho_final.model.DescontoModel;
 import com.mycompany.trabalho_final.model.ImpostoModel;
@@ -16,6 +14,8 @@ import com.mycompany.trabalho_final.model.PedidoModel;
 import com.mycompany.trabalho_final.model.ProdutoDAO;
 import com.mycompany.trabalho_final.model.ProdutoModel;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -31,11 +31,24 @@ public class Main {
             LocalDateTime data = LocalDateTime.now();
 
             ProdutoDAO dao = ProdutoDAO.getInstance();
+            
+            /*List<ProdutoModel> lista = new ArrayList<>();
+            
+            lista.addAll(dao.getProdutosBasicos());
+            
+            for(ProdutoModel p : lista) {
+                System.out.println(p);
+            }*/
 
             //constroi cesta economica
-            CestaBuilder builderEconomica = new CestaEconomicaBuilder();
-            CestaDirector director = new CestaDirector(builderEconomica);
-            CestaBasicaModel cesta = director.buildCesta();
+            CestaDirector director = new CestaDirector();
+            
+            CestaBuilder builder = new CestaBuilder();
+            director.constructCestaEconomica(builder);
+            
+            //CestaBasicaModel cesta = builder.getCesta();
+            
+            //System.out.println(cesta.getListaProdutosCesta());
 
             // pega produtos
             ProdutoModel produto = dao.getProdutos().get(0);

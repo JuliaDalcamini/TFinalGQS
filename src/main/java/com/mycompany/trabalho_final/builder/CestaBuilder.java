@@ -13,17 +13,25 @@ import java.util.List;
  *
  * @author julia
  */
-public abstract class CestaBuilder {
-
+public class CestaBuilder implements Builder{
+    
+    protected TipoCesta tipo;
     protected CestaBasicaModel cesta;
     protected ProdutoDAO dao;
     protected List<ProdutoModel> produtos;
+    
 
-    public abstract void createCesta();
+    @Override
+    public void setTipoCesta(TipoCesta tipo) {
+        this.tipo = tipo;
+    }
 
-    public abstract void addProduto();
-
+    @Override
+    public void setProdutos(List produtos) {
+        this.produtos = produtos;
+    }
+    
     public CestaBasicaModel getCesta() {
-        return cesta;
+        return new CestaBasicaModel(produtos, tipo);
     }
 }

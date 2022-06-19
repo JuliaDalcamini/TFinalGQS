@@ -4,8 +4,7 @@
  */
 package com.mycompany.trabalho_final.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import com.mycompany.trabalho_final.builder.TipoCesta;
 import java.util.List;
 
 /**
@@ -14,23 +13,28 @@ import java.util.List;
  */
 public class CestaBasicaModel {
     
-    private ArrayList<ProdutoCesta> listaProdutosCesta = new ArrayList<>();;
-    private ProdutoCesta produtoCesta;
+    private List<ProdutoModel> listaProdutosCesta;
+    private TipoCesta tipo;
 
-    public CestaBasicaModel() {
+    public CestaBasicaModel(List<ProdutoModel> listaProdutosCesta, TipoCesta tipo) {
+        this.listaProdutosCesta = listaProdutosCesta;
+        this.tipo = tipo;
     }
 
-    public List<ProdutoCesta> getListaProdutosCesta() {
-        return Collections.unmodifiableList(listaProdutosCesta);
+    public List<ProdutoModel> getListaProdutosCesta() {
+        return listaProdutosCesta;
     }
 
-    public void addProdutoCesta(ProdutoModel produto, int quantidade) {
-        //System.out.println("produto: " + produto.getNome() + " quantidade: "+ quantidade);
-        listaProdutosCesta.add(new ProdutoCesta(produto.getNome(), quantidade));
+    public TipoCesta getTipo() {
+        return tipo;
     }
     
-    public void addQuantidadeProdutoEspecifico(int idProduto, int quantidade) {
-        listaProdutosCesta.get(idProduto).setQuantidadeProduto(quantidade);
+    public String print() {
+        int i = 1;
+        for(ProdutoModel p : listaProdutosCesta) {
+            System.out.println(i + ":" + p);
+            i++;
+        }
+        return "oi";
     }
-    
 }
